@@ -1,0 +1,23 @@
+#Three sum
+
+#My wrong solution.
+class Solution(object):
+    def threeSum(self, nums):
+        """
+        :type nums: List[int]
+        :rtype: List[List[int]]
+        """
+        res = []
+        nums.sort()
+        second = len(nums)// 2
+        first = second - 1
+        third = second + 1
+        for third in range(second):
+            sum = nums[first] + nums[second] + nums[third]
+            if sum < 0:
+                third += 1
+            elif sum > 0:
+                first -= 1
+            else:
+                res.append([first,second, third])
+        return res
