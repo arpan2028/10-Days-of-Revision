@@ -1,0 +1,18 @@
+#Clone Node
+
+class Solution(object):
+    def cloneGraph(self, node):
+        """
+        :type node: Node
+        :rtype: Node
+        """
+        visited = {}
+        def clonner(node):
+            if node in visited:
+                return visited[node]
+            copy = Node(node.val)
+            visited[node] = copy
+            for nei in node.neighbors:
+                copy.neighbors.append(clonner(nei))
+            return copy
+        return clonner(node) if node else None
