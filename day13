@@ -1,0 +1,32 @@
+#Top k frequent Elements(Thoughts included in the bottom)
+from collections import defaultdict
+import heapq
+from typing import List
+class Solution:
+    def topKFrequent(self, nums: List[int], k: int) -> List[int]:
+        d = defaultdict(int)
+        for num in nums:
+            d[num] += 1
+        heap = []
+        for key, val in d.items():
+            if len(heap) < k or val > heap[0][0]:
+                #push only if heap isn't full
+                #or if current freq(val) is greater than smallest freq in heap(heap[0])
+                heapq.heappush(heap, [val, key])
+            if len(heap) > k:
+                heapq.heappop(heap)
+        return [i[1] for i in heap]
+"""
+Thoughts(What I learnt)
+1. We have to manually control the size of heap using if.
+2. Using defaultdict made code easier.Without it manual way would be:
+d = {}
+for num in nums:
+    if num in d:
+        d[num] += 1
+    else:
+        d[num] = 1
+3. We can also make this code shorter using counter.
+d = Counter(nums)
+
+"""
